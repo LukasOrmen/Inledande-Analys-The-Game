@@ -7,9 +7,8 @@
                 "text": "Förenkla uttrycket $\\frac{\\frac{1}{4}+\\frac{1}{3}}{\\frac{1}{4}-\\frac{1}{3}}$ så långt som möjligt.",
                 "answer": "$-7$",
                 "explanation": "$\\frac{\\frac{1}{4}+\\frac{1}{3}}{\\frac{1}{4}-\\frac{1}{3}} = \\frac{\\frac{3+4}{12}}{\\frac{3-4}{12}} = \\frac{7}{-1} = -7$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "2": {
                 "text": "Vad beskriver sambandet $x^2 + y^2 = 8y$ för något?",
@@ -22,17 +21,15 @@
                 },
                 "correct": "E",
                 "explanation": "$x^2 + y^2 = 8y \\iff x^2 + y^2 - 8y = 0 \\iff x^2 + (y-4)^2 = 4^2$, vilket är en cirkel med medelpunkt $(0,4)$ och radie $4$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "3": {
                 "text": "En linje går genom punkterna $(x,y)=(7,1)$ och $(x,y)=(10,7)$. Var skär linjen $x$-axeln?",
                 "answer": "$(x,y) = (\\frac{13}{2}, 0)$",
                 "explanation": "Riktningskoefficienten är $k = \\frac{7-1}{10-7} = 2$ och enpunktsformeln ger $y - 1 = 2(x - 7)$. Linjen skär $x$-axeln då $y = 0$, vilket ger $-1 = 2(x - 7) \\iff x = \\frac{13}{2}$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "4": {
                 "text": "Beräkna $\\sum_{k=4}^{25} \\frac{3}{2^k}$.",
@@ -45,17 +42,15 @@
                 },
                 "correct": "A",
                 "explanation": "Geometrisk summa med första term $a_1 = 3 \\cdot (\\frac{1}{2})^4 = \\frac{3}{16}$, kvot $q = \\frac{1}{2}$ och antal termer $25 - 4 + 1 = 22$. Summan blir $\\frac{3}{16} \\cdot \\frac{1 - (1/2)^{22}}{1 - 1/2} = \\frac{3}{8}\\left(1 - \\frac{1}{2^{22}}\\right)$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "5": {
                 "text": "Beräkna absolutbeloppet av $z = \\frac{(1-2i)(3+i)^2}{2i(2-i)}$.",
                 "answer": "$|z| = 5$",
                 "explanation": "$|z| = \\frac{|1-2i| \\cdot |3+i|^2}{|2i| \\cdot |2-i|} = \\frac{\\sqrt{5} \\cdot (\\sqrt{10})^2}{2 \\cdot \\sqrt{5}} = \\frac{10}{2} = 5$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "6": {
                 "text": "Bestäm alla reella $x$ sådana att $\\frac{1}{2-x} \\le \\frac{1}{2x+3}$.",
@@ -68,9 +63,8 @@
                 },
                 "correct": "E",
                 "explanation": "$\\frac{1}{2-x} - \\frac{1}{2x+3} \\le 0 \\iff \\frac{(2x+3)-(2-x)}{(2-x)(2x+3)} \\le 0 \\iff \\frac{3x+1}{(2-x)(2x+3)} \\le 0$. Teckentabell med nollställen/poler i $x = -\\frac{3}{2}, -\\frac{1}{3}, 2$ ger att olikheten gäller då $-\\frac{3}{2} < x \\le -\\frac{1}{3}$ eller $x > 2$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "7": {
                 "text": "Bestäm alla reella $x$ sådana att $|2x+2| = 2 + |x-1|$.",
@@ -83,9 +77,8 @@
                 },
                 "correct": "C",
                 "explanation": "Falluppdelning kring brytpunkterna $x = -1$ och $x = 1$:\n• $x \\le -1$: $-(2x+2) = 2 - (x-1) \\iff x = -5$ (OK)\n• $-1 \\le x \\le 1$: $2x+2 = 2 - (x-1) \\iff x = \\frac{1}{3}$ (OK)\n• $x \\ge 1$: $2x+2 = 2 + x - 1 \\iff x = -1$ (Ej i intervallet)",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "8": {
                 "text": "Bestäm alla lösningar till ekvationen $\\frac{x}{2} + \\sqrt{7-x} = 2$.",
@@ -98,9 +91,8 @@
                 },
                 "correct": "D",
                 "explanation": "$\\sqrt{7-x} = 2 - \\frac{x}{2} \\implies 7 - x = (2 - \\frac{x}{2})^2 \\iff x^2 - 4x - 12 = 0 \\iff x = -2$ eller $x = 6$. Prövning i ursprungsekvationen visar att $x = -2$ ger VL $= -1 + 3 = 2 = $ HL (OK), medan $x = 6$ ger VL $= 3 + 1 = 4 \\ne 2$ (falsk rot).",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "9": {
                 "text": "Bestäm koefficienten framför $x^3$ i utvecklingen av $\\left(x - \\frac{1}{x}\\right)^9$.",
@@ -542,33 +534,29 @@
                 "text": "Bestäm real- och imaginärdelen av $z = \\overline{2+i} - \\frac{3i}{1-3i}$.",
                 "answer": "$\\operatorname{Re}(z) = \\frac{29}{10}$, $\\operatorname{Im}(z) = -\\frac{13}{10}$",
                 "explanation": "$z = 2 - i - \\frac{3i(1+3i)}{(1-3i)(1+3i)} = 2 - i - \\frac{3i - 9}{10} = \\left(2 + \\frac{9}{10}\\right) + i\\left(-1 - \\frac{3}{10}\\right) = \\frac{29}{10} - \\frac{13}{10}i$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "2": {
                 "text": "Ange det största värdet som $p(x) = -3x^2 - 5x + 1$ antar på den reella tallinjen.",
                 "answer": "$\\frac{37}{12}$",
                 "explanation": "Kvadratkomplettering ger $p(x) = -3\\left(x^2 + \\frac{5}{3}x\\right) + 1 = -3\\left(x + \\frac{5}{6}\\right)^2 + \\frac{25}{12} + 1 = -3\\left(x + \\frac{5}{6}\\right)^2 + \\frac{37}{12} \\le \\frac{37}{12}$, med likhet då $x = -\\frac{5}{6}$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "3": {
                 "text": "En cirkel har ekvationen $(x-1)^2 + (y+2)^2 = 9$. Bestäm ekvationen för linjen som går genom origo, och som skär cirkeln när $x = 4$.",
                 "answer": "$y = -\\frac{1}{2}x$",
                 "explanation": "Insättning av $x = 4$ i cirkelns ekvation ger $(4-1)^2 + (y+2)^2 = 9 \\iff (y+2)^2 = 0 \\iff y = -2$. Linjen går genom $(0,0)$ och $(4,-2)$, vilket ger $k = \\frac{-2-0}{4-0} = -\\frac{1}{2}$ och $m = 0$, alltså $y = -\\frac{1}{2}x$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "4": {
                 "text": "Beräkna summan $\\sum_{k=0}^{62} 4 \\cdot 5^k$. Svara i enklast möjliga form.",
                 "answer": "$5^{63} - 1$",
                 "explanation": "Geometrisk summa med första term $4$, kvot $5$ och $62 - 0 + 1 = 63$ termer: $\\sum_{k=0}^{62} 4 \\cdot 5^k = 4 \\cdot \\frac{5^{63} - 1}{5 - 1} = 5^{63} - 1$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "5": {
                 "text": "Ange samtliga lösningar till ekvationen $\\frac{1}{\\frac{2x}{3x-4} - 5} = 0$.",
@@ -581,17 +569,15 @@
                 "text": "Lös rotekvationen $\\sqrt{x+8} - x = 2$.",
                 "answer": "$x = 1$",
                 "explanation": "$\\sqrt{x+8} = x + 2 \\implies x + 8 = (x+2)^2 \\iff x^2 + 3x - 4 = 0 \\iff x = 1$ eller $x = -4$. Prövning visar att $x = 1$ ger VL $= \\sqrt{9} - 1 = 2 = $ HL (OK), medan $x = -4$ ger VL $= \\sqrt{4} - (-4) = 6 \\ne 2$ (falsk rot).",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "7": {
                 "text": "Lös beloppsekvationen $x + |2x+1| = |x-2| - 1$.",
                 "answer": "$x = 0$",
                 "explanation": "Falluppdelning kring $x = -\\frac{1}{2}$ och $x = 2$:\n• $x \\le -\\frac{1}{2}$: $x - 2x - 1 = 2 - x - 1 \\iff 0 = 2$ (saknar lösning)\n• $-\\frac{1}{2} \\le x \\le 2$: $x + 2x + 1 = 2 - x - 1 \\iff 4x = 0 \\iff x = 0$ (OK)\n• $x \\ge 2$: $x + 2x + 1 = x - 2 - 1 \\iff 2x = -4 \\iff x = -2$ (Ej i intervallet)",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "8": {
                 "text": "Bestäm alla reella $x$ sådana att $\\frac{1}{x} < \\frac{5-2x}{x+2}$.",
@@ -611,17 +597,15 @@
                 "text": "Bestäm koefficienten framför $x^{15}$ i utvecklingen av $\\left(x^3 - \\frac{2}{x^2}\\right)^{10}$.",
                 "answer": "$-960$",
                 "explanation": "Allmänna termen är $\\binom{10}{k} (x^3)^{10-k} \\left(-\\frac{2}{x^2}\\right)^k = \\binom{10}{k} (-2)^k x^{30-5k}$. Vi söker $30 - 5k = 15 \\iff k = 3$, vilket ger koefficienten $\\binom{10}{3} (-2)^3 = 120 \\cdot (-8) = -960$.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             },
             "10": {
                 "text": "Polynomet $p(z) = z^4 - 8z^3 + 42z^2 - 104z + 169$ har ett komplext nollställe $\\alpha = 2 + 3i$. Hur många olika nollställen har $p(z)$ totalt?",
                 "answer": "$2$ olika nollställen",
                 "explanation": "Eftersom $p(z)$ har reella koefficienter är även $\\overline{\\alpha} = 2 - 3i$ ett nollställe, så $(z-(2+3i))(z-(2-3i)) = z^2 - 4z + 13$ delar $p(z)$. Polynomdivision ger $p(z) = (z^2 - 4z + 13)^2$, vilket innebär att $2+3i$ och $2-3i$ är dubbelrötter och $p(z)$ har totalt $2$ olika nollställen.",
-                "completed": true,
-                "bookmarked": false,
-                "completed_date": "2026-11-24"
+                "completed": false,
+                "bookmarked": false
             }
         }
     },
