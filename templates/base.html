@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Inledande Matematisk Analys{% endblock %}</title>
+    
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script>
+    MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        chtml: {
+        displayOverflow: 'linebreak',
+        linebreaks: { automatic: true }
+        }
+    };
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header-row">
+            <h1>Inledande Matematisk Analys</h1>
+            <button id="theme-toggle" class="btn-icon" onclick="toggleDarkMode()" style="font-size: 0.75rem; padding: 3px 6px;">🌙</button>
+        </div>
+                <div class="top-nav">
+            <div style="display: flex; gap: 16px; align-items: center;">
+                <a href="{{ url_for('index') }}" class="stats-link {% if request.endpoint in ['index', 'view_module', 'view_problem'] %}active{% endif %}">Uppgifter</a>
+                <a href="{{ url_for('duggor') }}" class="stats-link {% if request.endpoint == 'duggor' %}active{% endif %}">Gamla duggor</a>
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <a href="{{ url_for('bookmarks') }}" class="stats-link {% if request.endpoint == 'bookmarks' %}active{% endif %}">Bokmärken</a>
+                <a href="{{ url_for('stats') }}" class="stats-link {% if request.endpoint == 'stats' %}active{% endif %}">Statistik</a>
+            </div>
+        </div>
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

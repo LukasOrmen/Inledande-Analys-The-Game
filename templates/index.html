@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="stats-container">
+    <div class="stats-section">
+        <div class="section-label">Framsteg</div>
+        <div class="stats-grid-top">
+            <div class="stat-box">
+                <span class="stat-box-title">Totala framsteg</span>
+                <div class="stat-box-header">
+                    <span class="stat-box-value">{{ stats.total_pct }}%</span>
+                    <span class="stat-box-sub">{{ stats.completed_problems }} / {{ stats.total_problems }}</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: {{ stats.total_pct }}%;"></div>
+                </div>
+            </div>
+            <div class="stat-box">
+                <span class="stat-box-title">Klara idag</span>
+                <div class="stat-box-header" style="margin-top: auto;">
+                    <span class="stat-box-value">{{ stats.completed_today }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="section-label">Lektioner</div>
+        <div class="lessons-grid">
+            {% for mod_name, probs in modules.items() %}
+                {% set total = probs|length %}
+                {% set completed = probs.values() | selectattr('completed') | list | length %}
+                {% set mod_percent = (completed / total * 100) if total > 0 else 0 %}
+                
+                <a href="{{ url_for('view_module', module_name=mod_name) }}" class="stat-card-advanced">
+                    <div class="stat-card-header">
+                        <span>{{ get_display_name(mod_name) }}</span>
+                        <span class="stat-numbers">{{ completed }}/{{ total }}</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: {{ mod_percent }}%;"></div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

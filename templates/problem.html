@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Uppgift {{ selected_prob }} - {{ get_display_name(current_module) }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('view_module', module_name=current_module) }}" id="back-link" class="back-link">← {{ get_display_name(current_module) }}</a>
+
+<div class="detail-card {% if prob_data.completed %}done{% endif %}">
+    <div>
+        <div class="detail-header">
+            <span class="problem-title">Uppgift {{ selected_prob }}</span>
+            <div class="title-actions">
+                <button id="copy-btn" class="btn-icon" onclick='copyRawProblemText({{ prob_data.text | tojson | safe }}, "Uppgift {{ selected_prob }}", {{ prob_data.get("answer", "") | tojson | safe }})'>📋</button>
+                <form id="bookmark-form" method="POST" action="{{ url_for('toggle_bookmark') }}" style="margin:0;">
+                    <input type="hidden" name="module" value="{{ current_module }}">
+                    <input type="hidden" name="prob" value="{{ selected_prob }}">
+                    <button type="submit" class="btn-icon {% if prob_data.bookmarked %}bookmarked{% endif %}">
+                        {% if prob_data.bookmarked %}⭐{% else %}☆{% endif %}
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="problem-text">{{ prob_data.text }}</div>
+    </div>
+
+    <div class="actions">
+        <div>
+            {% if prev_prob %}
+                <a href="{{ url_for('view_problem', module_name=current_module, prob_id=prev_prob) }}" id="nav-prev" class="btn">←</a>
+            {% else %}
+                <span id="nav-prev" class="btn disabled">←</span>
+            {% endif %}
+
+            {% if next_prob %}
+                <a href="{{ url_for('view_problem', module_name=current_module, prob_id=next_prob) }}" id="nav-next" class="btn">→</a>
+            {% else %}
+                <span id="nav-next" class="btn disabled">→</span>
+            {% endif %}
+        </div>
+
+        <form id="toggle-form" method="POST" action="{{ url_for('toggle') }}" style="margin:0;">
+            <input type="hidden" name="module" value="{{ current_module }}">
+            <input type="hidden" name="prob" value="{{ selected_prob }}">
+            <button type="submit" class="btn btn-toggle {% if prob_data.completed %}done{% endif %}">
+                {% if prob_data.completed %}Klar{% else %}Markera klar{% endif %}
+            </button>
+        </form>
+    </div>
+</div>
+
+{% if prob_data.completed and prob_data.get('answer') %}
+    <div class="answer-box">
+        <div class="answer-title">Facit / Svar</div>
+        <div class="answer-content">{{ prob_data.answer }}</div>
+    </div>
+{% endif %}
+{% endblock %}

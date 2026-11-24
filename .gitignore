@@ -1,0 +1,7 @@
+debug/
+.venv
+.vscode/
+.DS_Store
+problems.json
+backups/
+test_results.json

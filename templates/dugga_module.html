@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ dugga.title }} - Inledande Matematisk Analys{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('duggor') }}" id="back-link" class="back-link">← Gamla duggor</a>
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px;">
+    <div style="font-weight: 600; font-size: 1.1rem;">{{ dugga.title }}</div>
+    <a href="{{ url_for('dugga_test', dugga_id=dugga_id) }}" class="btn btn-toggle" style="text-decoration: none;">
+        Starta testläge
+    </a>
+</div>
+
+<div class="problem-list">
+    {% for prob_key, prob_info in dugga.problems.items() %}
+        <a href="{{ url_for('view_dugga_problem', dugga_id=dugga_id, prob_id=prob_key) }}" class="list-item {% if prob_info.completed %}done{% endif %}">
+            <div class="list-item-left">
+                {% if prob_info.bookmarked %}<span>⭐</span>{% endif %}
+                <span>Uppgift {{ prob_key }}</span>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

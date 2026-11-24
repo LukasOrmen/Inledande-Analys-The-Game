@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Bokmärken - Inledande Matematisk Analys{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('index') }}" id="back-link" class="back-link">← Uppgifter</a>
+<div style="margin-bottom: 16px; font-weight: 600; font-size: 1rem;">Bokmärkta uppgifter</div>
+
+<div class="problem-list">
+    {% for item in bookmarked_items %}
+        <a href="{{ item.url }}" class="list-item {% if item.completed %}done{% endif %}">
+            <div class="list-item-left">
+                <span>⭐</span>
+                <span>{{ item.title }}</span>
+            </div>
+        </a>
+    {% else %}
+        <div style="padding: 20px; text-align: center; color: var(--text-muted); background: var(--surface); border-radius: 8px;">
+            Inga bokmärkta uppgifter hittades. Klicka på stjärnan (⭐) i en uppgift för att spara den här!
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

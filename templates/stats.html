@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}Statistik - Inledande Matematisk Analys{% endblock %}
+
+{% block content %}
+<style>
+    .activity-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .activity-tabs {
+        display: inline-flex;
+        gap: 4px;
+        padding: 3px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+    }
+    .activity-tab-btn {
+        padding: 4px 10px;
+        border-radius: 6px;
+        border: none;
+        background: transparent;
+        color: inherit;
+        font-size: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: all 0.15s ease;
+    }
+    .activity-tab-btn.active {
+        background: rgba(59, 130, 246, 0.25);
+        color: #60a5fa;
+        opacity: 1;
+        font-weight: 600;
+    }
+    .activity-panel {
+        height: 130px;
+        box-sizing: border-box;
+    }
+    .chart-hover-target {
+        cursor: pointer;
+        transition: transform 0.12s ease, filter 0.12s ease;
+    }
+    .chart-hover-target:hover {
+        filter: brightness(1.2);
+    }
+    .chart-tooltip {
+        position: fixed;
+        z-index: 9999;
+        pointer-events: none;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        white-space: nowrap;
+        background: rgba(17, 24, 39, 0.95);
+        color: #f9fafb;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+        transform: translate(-50%, -100%);
+        opacity: 0;
+        transition: opacity 0.1s ease;
+    }
+    .chart-tooltip.visible {
+        opacity: 1;
+    }
+</style>
+
+<div id="chart-tooltip" class="chart-tooltip"></div>
+
+<div class="stats-container">
+    <div class="stats-section">
+        <div class="section-label">Översikt</div>
+        <div class="stats-grid-top" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+            <div class="stat-box">
+                <span class="stat-box-title">Totala framsteg</span>
+                <div class="stat-box-header">
+                    <span class="stat-box-value">{{ adv_stats.total_pct }}%</span>
+                    <span class="stat-box-sub">{{ adv_stats.completed_problems }} / {{ adv_stats.total_problems }}</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: {{ adv_stats.total_pct }}%;"></div>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <span class="stat-box-title">Klara idag</span>
+                <div class="stat-box-header" style="margin-top: auto;">
+                    <span class="stat-box-value">{{ adv_stats.completed_today }}</span>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <span class="stat-box-title">Streak</span>
+                <div class="stat-box-header" style="margin-top: auto;">
+                    <span class="stat-box-value">{{ adv_stats.streak }} d</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-section" style="margin-top: 28px;">
+        <div class="activity-header">
+            <div class="section-label" style="margin-bottom: 0;">Aktivitet</div>
+            <div class="activity-tabs">
+                <button type="button" id="tab-7d" class="activity-tab-btn active" onclick="switchActivityTab('7d')">7 dagar</button>
+                <button type="button" id="tab-28d" class="activity-tab-btn" onclick="switchActivityTab('28d')">28 dagar</button>
+            </div>
+        </div>
+
+        <div class="stat-box">
+            <!-- Vy 1: Senaste 7 dagarna -->
+            <div id="view-7d" class="activity-panel" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; padding-top: 4px;">
+                {% for bar in adv_stats.weekly_bars %}
+                    <div class="chart-hover-target"
+                         data-tooltip="{{ bar.count }} {{ 'uppgift' if bar.count == 1 else 'uppgifter' }} ({{ bar.date_label }})"
+                         style="flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; gap: 6px;">
+                        <span style="font-size: 0.75rem; opacity: 0.75;">{{ bar.count }}</span>
+                        <div style="width: 100%; max-width: 32px; height: {{ bar.height_pct if bar.height_pct > 4 else 4 }}%; background: {% if bar.count > 0 %}#3b82f6{% else %}rgba(255,255,255,0.08){% endif %}; border-radius: 6px; transition: height 0.2s ease;"></div>
+                        <span style="font-size: 0.8rem; opacity: 0.8;">{{ bar.day_name }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Vy 2: Senaste 28 dagarna -->
+            <div id="view-28d" class="activity-panel" style="display: none; align-items: center; justify-content: center;">
+                <div style="display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: repeat(2, 1fr); gap: 8px; width: 100%; height: 100%;">
+                    {% for day in adv_stats.heatmap_days %}
+                        <div class="chart-hover-target"
+                             data-tooltip="{{ day.count }} {{ 'uppgift' if day.count == 1 else 'uppgifter' }} ({{ day.date_label }})"
+                             style="width: 100%; height: 100%; border-radius: 6px; background:
+                             {% if day.level == 3 %}#3b82f6
+                             {% elif day.level == 2 %}rgba(59, 130, 246, 0.65)
+                             {% elif day.level == 1 %}rgba(59, 130, 246, 0.32)
+                             {% else %}rgba(255, 255, 255, 0.06){% endif %};">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-section" style="margin-top: 28px;">
+        <div class="section-label">Testresultat (Duggor)</div>
+        {% if test_history %}
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                {% for res in test_history %}
+                    <div class="stat-box" style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <div>
+                                <a href="{{ url_for('view_dugga', dugga_id=res.dugga_id) }}" style="font-weight: 600; text-decoration: none; color: inherit;">
+                                    {{ res.title }}
+                                </a>
+                                <span style="font-size: 0.85rem; opacity: 0.65; margin-left: 8px;">{{ res.date }}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; font-variant-numeric: tabular-nums;">
+                                <span style="font-size: 0.9rem; opacity: 0.8;">⏱ {{ res.duration_formatted }}</span>
+                                <span style="font-weight: 700;">{{ res.score }} / {{ res.total }} rätt</span>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 0.8rem;">
+                            {% for p in res.correct_probs %}
+                                <span style="padding: 2px 8px; border-radius: 6px; background: rgba(34, 197, 94, 0.16); border: 1px solid rgba(34, 197, 94, 0.4); color: #22c55e;">
+                                    ✓ {{ p }}
+                                </span>
+                            {% endfor %}
+                            {% for p in res.wrong_probs %}
+                                <span style="padding: 2px 8px; border-radius: 6px; background: rgba(239, 68, 68, 0.14); border: 1px solid rgba(239, 68, 68, 0.35); color: #ef4444;">
+                                    ✗ {{ p }}
+                                </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="stat-box" style="text-align: center; padding: 20px; opacity: 0.7;">
+                Inga testresultat sparade ännu. Starta ett testläge på valfri dugga för att logga ditt första resultat!
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function switchActivityTab(tab) {
+        const is7d = tab === '7d';
+        document.getElementById('view-7d').style.display = is7d ? 'flex' : 'none';
+        document.getElementById('view-28d').style.display = is7d ? 'none' : 'flex';
+        document.getElementById('tab-7d').classList.toggle('active', is7d);
+        document.getElementById('tab-28d').classList.toggle('active', !is7d);
+    }
+
+    const tooltip = document.getElementById('chart-tooltip');
+    document.querySelectorAll('.chart-hover-target').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            tooltip.textContent = el.dataset.tooltip;
+            tooltip.classList.add('visible');
+        });
+        el.addEventListener('mousemove', (e) => {
+            tooltip.style.left = `${e.clientX}px`;
+            tooltip.style.top = `${e.clientY - 12}px`;
+        });
+        el.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('visible');
+        });
+    });
+</script>
+{% endblock %}

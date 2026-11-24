@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ get_display_name(current_module) }} - Inledande Matematisk Analys{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('index') }}" id="back-link" class="back-link">← Översikt</a>
+<div style="margin-bottom: 16px; font-weight: 600; font-size: 1.1rem;">{{ get_display_name(current_module) }}</div>
+
+<div class="problem-list">
+    {% for prob_key, prob_info in probs.items() %}
+        <a href="{{ url_for('view_problem', module_name=current_module, prob_id=prob_key) }}" class="list-item {% if prob_info.completed %}done{% endif %}">
+            <div class="list-item-left">
+                {% if prob_info.bookmarked %}<span>⭐</span>{% endif %}
+                <span>Uppgift {{ prob_key }}</span>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

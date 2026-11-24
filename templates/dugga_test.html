@@ -1,0 +1,660 @@
+{% extends "base.html" %}
+
+{% block title %}Testläge: {{ dugga.title }} - Inledande Matematisk Analys{% endblock %}
+
+{% block content %}
+<style>
+    .test-topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        gap: 12px;
+    }
+    .test-timer {
+        font-variant-numeric: tabular-nums;
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 4px 10px;
+        border-radius: 8px;
+        background: var(--bg-card, rgba(255,255,255,0.05));
+        border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+    }
+    .test-nav-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 16px;
+    }
+    .test-pill {
+        min-width: 34px;
+        height: 34px;
+        padding: 0 8px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color, rgba(255,255,255,0.15));
+        background: transparent;
+        color: inherit;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+    .test-pill.answered {
+        background: rgba(59, 130, 246, 0.18);
+        border-color: rgba(59, 130, 246, 0.5);
+    }
+    .test-pill.active {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35);
+        font-weight: 700;
+    }
+    .test-input-box {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 16px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color, rgba(255,255,255,0.2));
+        background: rgba(0, 0, 0, 0.15);
+        color: inherit;
+        font-size: 1rem;
+        font-family: inherit;
+    }
+    .test-input-box:focus {
+        outline: none;
+        border-color: #3b82f6;
+    }
+    .mcq-btn.selected {
+        border-color: #3b82f6 !important;
+        background: rgba(59, 130, 246, 0.18) !important;
+    }
+    .result-card {
+        margin-bottom: 16px;
+    }
+    .result-card.is-correct {
+        border-left: 4px solid #22c55e;
+    }
+    .result-card.is-wrong {
+        border-left: 4px solid #ef4444;
+    }
+    .result-card.is-pending {
+        border-left: 4px solid #eab308;
+    }
+    .grade-btns {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+    }
+    .grade-btn {
+        padding: 6px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color, rgba(255,255,255,0.2));
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font-weight: 500;
+    }
+    .grade-btn.active-right {
+        background: rgba(34, 197, 94, 0.2);
+        border-color: #22c55e;
+        color: #22c55e;
+    }
+    .grade-btn.active-wrong {
+        background: rgba(239, 68, 68, 0.2);
+        border-color: #ef4444;
+        color: #ef4444;
+    }
+</style>
+
+<!-- TESTVY -->
+<div id="test-view">
+    <div class="test-topbar">
+        <a href="{{ url_for('view_dugga', dugga_id=dugga_id) }}" class="back-link" style="margin:0;">← Avbryt test</a>
+        <div style="font-weight: 600;">{{ dugga.title }}</div>
+        <div class="test-timer" id="test-timer">00:00</div>
+    </div>
+
+    <div class="test-nav-pills" id="nav-pills"></div>
+
+    <div class="detail-card">
+        <div>
+            <div class="detail-header">
+                <span class="problem-title" id="prob-heading">Uppgift</span>
+                <span id="prob-counter" style="font-size: 0.85rem; opacity: 0.7;"></span>
+            </div>
+
+            <div class="problem-text" id="prob-text"></div>
+
+            <!-- Flervalsalternativ -->
+            <div class="mcq-options" id="mcq-area" style="display: none;"></div>
+
+            <!-- Fritextsvar -->
+            <div id="text-area" style="display: none;">
+                <input type="text" id="free-text-input" class="test-input-box" placeholder="Skriv ditt svar här (t.ex. -7, 3/4, x = -5 eller a=3, b=1, c=8)..." autocomplete="off">
+            </div>
+        </div>
+
+        <div class="actions" style="margin-top: 24px;">
+            <div>
+                <button type="button" id="btn-prev" class="btn" onclick="changeProblem(-1)">←</button>
+                <button type="button" id="btn-next" class="btn" onclick="changeProblem(1)">→</button>
+            </div>
+
+            <button type="button" id="btn-submit-test" class="btn btn-toggle" onclick="submitTest()">
+                Lämna in test
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- RESULTATVY -->
+<div id="result-view" style="display: none;">
+    <div class="test-topbar">
+        <a href="{{ url_for('view_dugga', dugga_id=dugga_id) }}" class="back-link" style="margin:0;">← Tillbaka till dugga</a>
+        <div style="font-weight: 600;">Resultat – {{ dugga.title }}</div>
+        <div class="test-timer" id="final-time"></div>
+    </div>
+
+    <div class="detail-card" style="margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+                <div style="font-size: 1.25rem; font-weight: 700;" id="score-summary">0 / 0 rätt</div>
+                <div style="font-size: 0.9rem; opacity: 0.75; margin-top: 4px;">
+                    Enkla tal, bråk och flervalsfrågor rättas automatiskt. Kontrollera eventuella gula uppgifter nedan.
+                </div>
+            </div>
+            <button type="button" id="sync-btn" class="btn btn-toggle" onclick="syncProgress()">
+                Markera rättade som klara
+            </button>
+        </div>
+    </div>
+
+    <div id="results-list"></div>
+</div>
+
+<script>
+    const DUGGA_ID = {{ dugga_id | tojson | safe }};
+    const PROBLEMS = {{ dugga.problems | tojson | safe }};
+    const PROB_KEYS = Object.keys(PROBLEMS);
+    const STORAGE_KEY = `dugga_test_${DUGGA_ID}`;
+
+    let currentIdx = 0;
+    let userAnswers = {};
+    let grades = {};
+    let autoMatched = {};
+    let startTime = Date.now();
+    let timerInterval = null;
+    let isSubmitted = false;
+    let currentResultId = null;
+    let submittedDuration = 0;
+
+    try {
+        const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+        if (saved) {
+            userAnswers = saved.userAnswers || {};
+            currentIdx = saved.currentIdx || 0;
+            if (saved.startTime) startTime = saved.startTime;
+        }
+    } catch (e) {}
+
+    function saveState() {
+        if (isSubmitted) return;
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+            userAnswers,
+            currentIdx,
+            startTime
+        }));
+    }
+
+    function getElapsedSeconds() {
+        return Math.max(0, Math.floor((Date.now() - startTime) / 1000));
+    }
+
+    function formatTime(sec) {
+        const m = String(Math.floor(sec / 60)).padStart(2, '0');
+        const s = String(sec % 60).padStart(2, '0');
+        return `${m}:${s}`;
+    }
+
+    function updateTimerDisplay() {
+        document.getElementById('test-timer').textContent = formatTime(getElapsedSeconds());
+    }
+
+    function startTimer() {
+        if (timerInterval || isSubmitted || document.hidden) return;
+        updateTimerDisplay();
+        timerInterval = setInterval(updateTimerDisplay, 1000);
+    }
+
+    function stopTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (isSubmitted) return;
+        if (document.hidden) {
+            stopTimer();
+        } else {
+            updateTimerDisplay();
+            startTimer();
+        }
+    });
+
+    /* --- NORMALISERINGSMOTOR FÖR AUTOMATISK RÄTTNING --- */
+    function normalizeMathString(str) {
+        if (!str) return '';
+        let s = String(str).trim().toLowerCase();
+
+        // Ta bort LaTeX-dollartecken och formateringsmakron
+        s = s.replace(/\$/g, '');
+        s = s.replace(/\\left|\\right|\\displaystyle|\\,/g, '');
+        s = s.replace(/\\operatorname\{([^}]+)\}/g, '$1');
+        s = s.replace(/\\text\{([^}]+)\}/g, '$1');
+
+        // Ersätt \sqrt[n]{x} och \sqrt{x}
+        s = s.replace(/\\sqrt\[([^\]]+)\]\{([^}]+)\}/g, '(($2)^(1/($1)))');
+        s = s.replace(/\\sqrt\{([^}]+)\}/g, 'sqrt($1)');
+        s = s.replace(/\\sqrt\s*([a-z0-9]+)/g, 'sqrt($1)');
+
+        // Ersätt \frac{a}{b} (iterativt för nästlade bråk)
+        for (let i = 0; i < 3; i++) {
+            s = s.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, '(($1)/($2))');
+        }
+
+        // Standardisera symboler och ord
+        s = s.replace(/\\pi/g, 'pi');
+        s = s.replace(/\\ln/g, 'ln');
+        s = s.replace(/\\cdot/g, '*');
+        s = s.replace(/\\pm/g, '+-');
+        s = s.replace(/\\ne/g, '!=');
+        s = s.replace(/\\le/g, '<=');
+        s = s.replace(/\\ge/g, '>=');
+        s = s.replace(/−|–/g, '-');
+
+        // Ta bort vanliga prefix/suffix som "|z| =", "x =", "svar:", "termer"
+        s = s.replace(/^(svar\s*:?\s*)/i, '');
+        s = s.replace(/^\|[a-z]\|\s*=\s*/i, '');
+        s = s.replace(/^[a-z]\s*=\s*/i, '');
+        s = s.replace(/\b(termer|olika nollställen|olika lösningar)\b/g, '');
+        s = s.replace(/\([^)]*\\in\s*\\mathbb\{z\}[^)]*\)/gi, '');
+
+        // Ta bort mellanslag och avslutande punkt
+        s = s.replace(/\s+/g, '');
+        s = s.replace(/\.$/, '');
+        return s;
+    }
+
+    function tryEvaluateNumeric(expr) {
+        if (!expr) return null;
+        // Konvertera säkra matematiska uttryck till JS Math
+        let jsExpr = expr
+            .replace(/sqrt\(/g, 'Math.sqrt(')
+            .replace(/\bpi\b/g, 'Math.PI')
+            .replace(/\bln\(/g, 'Math.log(')
+            .replace(/\be\b/g, 'Math.E')
+            .replace(/\^/g, '**');
+
+        // Implicit multiplikation: 2Math.sqrt -> 2*Math.sqrt, 2( -> 2*(, )( -> )*(
+        jsExpr = jsExpr
+            .replace(/(\d)(Math\.|\()/g, '$1*$2')
+            .replace(/\)(\d|\(|Math\.)/g, ')*$1');
+
+        // Tillåt endast matematiska tecken och Math.*-anrop
+        const sanitized = jsExpr.replace(/Math\.(sqrt|PI|log|E)/g, '');
+        if (/[^0-9+\-*/().*\s]/.test(sanitized)) return null;
+
+        try {
+            const val = Function(`"use strict"; return (${jsExpr});`)();
+            return (typeof val === 'number' && Number.isFinite(val)) ? val : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function singleItemMatches(userPart, facitPart) {
+        const uNorm = normalizeMathString(userPart);
+        const fNorm = normalizeMathString(facitPart);
+        if (!uNorm || !fNorm) return false;
+
+        // 1. Exakt strängträff efter normalisering
+        if (uNorm === fNorm) return true;
+
+        // 2. Strippa yttre parenteser runt hela uttrycket
+        const stripOuter = (str) => str.replace(/^\((.+)\)$/, '$1');
+        if (stripOuter(uNorm) === stripOuter(fNorm)) return true;
+
+        // 3. Numerisk utvärdering (t.ex. 3/4 == 0.75 eller sqrt(15)/4 == 0.9682)
+        const uNum = tryEvaluateNumeric(uNorm);
+        const fNum = tryEvaluateNumeric(fNorm);
+        if (uNum !== null && fNum !== null && Math.abs(uNum - fNum) < 1e-4) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function autoGradeFreeText(userAns, facitAns) {
+        const rawUser = (userAns || '').trim();
+        if (!rawUser) return { grade: false, auto: true };
+
+        // Hantera "saknar lösning" / "lösning saknas"
+        const uLower = rawUser.toLowerCase();
+        const fLower = (facitAns || '').toLowerCase();
+        if (fLower.includes('saknar') || fLower.includes('saknas')) {
+            if (uLower.includes('sakna') || uLower.includes('inga') || uLower === 'ingen') {
+                return { grade: true, auto: true };
+            }
+        }
+
+        // Dela upp i dellösningar vid "eller", "och" eller kommatecken (utanför parenteser)
+        const splitParts = (str) => {
+            return str
+                .replace(/\$/g, '')
+                .split(/\b(?:eller|och)\b|,/i)
+                .map(p => p.trim())
+                .filter(Boolean);
+        };
+
+        const uParts = splitParts(rawUser);
+        const fParts = splitParts(facitAns || '');
+
+        if (uParts.length === fParts.length && uParts.length > 0) {
+            const used = new Array(fParts.length).fill(false);
+            const allMatched = uParts.every(up => {
+                const idx = fParts.findIndex((fp, i) => !used[i] && singleItemMatches(up, fp));
+                if (idx !== -1) {
+                    used[idx] = true;
+                    return true;
+                }
+                return false;
+            });
+
+            if (allMatched) {
+                return { grade: true, auto: true };
+            }
+        }
+
+        // Om inget säkert matchades: lämna för manuell självrättning
+        return { grade: null, auto: false };
+    }
+    /* -------------------------------------------------- */
+
+    function typesetMath(element) {
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([element]).catch(() => {});
+        } else if (window.renderMathInElement) {
+            window.renderMathInElement(element, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ]
+            });
+        }
+    }
+
+    function renderPills() {
+        const container = document.getElementById('nav-pills');
+        container.innerHTML = '';
+        PROB_KEYS.forEach((key, idx) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'test-pill';
+            if (idx === currentIdx) btn.classList.add('active');
+            if ((userAnswers[key] || '').trim() !== '') btn.classList.add('answered');
+            btn.textContent = key;
+            btn.onclick = () => {
+                saveCurrentInput();
+                currentIdx = idx;
+                renderProblem();
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    function saveCurrentInput() {
+        const key = PROB_KEYS[currentIdx];
+        const prob = PROBLEMS[key];
+        if (!prob.options) {
+            const val = document.getElementById('free-text-input').value;
+            userAnswers[key] = val;
+        }
+        saveState();
+    }
+
+    function renderProblem() {
+        const key = PROB_KEYS[currentIdx];
+        const prob = PROBLEMS[key];
+
+        document.getElementById('prob-heading').textContent = `Uppgift ${key}`;
+        document.getElementById('prob-counter').textContent = `${currentIdx + 1} av ${PROB_KEYS.length}`;
+        document.getElementById('prob-text').textContent = prob.text;
+
+        const mcqArea = document.getElementById('mcq-area');
+        const textArea = document.getElementById('text-area');
+
+        if (prob.options) {
+            mcqArea.style.display = 'flex';
+            textArea.style.display = 'none';
+            mcqArea.innerHTML = '';
+
+            ['A', 'B', 'C', 'D', 'E'].forEach(letter => {
+                if (prob.options[letter]) {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'mcq-btn';
+                    if (userAnswers[key] === letter) btn.classList.add('selected');
+                    btn.innerHTML = `<span class="mcq-letter">${letter}</span><span class="mcq-text">${prob.options[letter]}</span>`;
+                    btn.onclick = () => {
+                        userAnswers[key] = (userAnswers[key] === letter) ? '' : letter;
+                        saveState();
+                        renderProblem();
+                    };
+                    mcqArea.appendChild(btn);
+                }
+            });
+        } else {
+            mcqArea.style.display = 'none';
+            textArea.style.display = 'block';
+            const input = document.getElementById('free-text-input');
+            input.value = userAnswers[key] || '';
+            input.oninput = () => {
+                userAnswers[key] = input.value;
+                saveState();
+                renderPills();
+            };
+        }
+
+        document.getElementById('btn-prev').disabled = currentIdx === 0;
+        document.getElementById('btn-prev').classList.toggle('disabled', currentIdx === 0);
+
+        const isLast = currentIdx === PROB_KEYS.length - 1;
+        document.getElementById('btn-next').style.display = isLast ? 'none' : 'inline-block';
+
+        renderPills();
+        saveState();
+        typesetMath(document.getElementById('test-view'));
+    }
+
+    function changeProblem(delta) {
+        saveCurrentInput();
+        const nextIdx = currentIdx + delta;
+        if (nextIdx >= 0 && nextIdx < PROB_KEYS.length) {
+            currentIdx = nextIdx;
+            renderProblem();
+        }
+    }
+
+    async function persistTestResult(finalSeconds) {
+        const correctProbs = PROB_KEYS.filter(k => grades[k] === true);
+        const wrongProbs = PROB_KEYS.filter(k => grades[k] !== true);
+
+        await fetch(`/duggor/${DUGGA_ID}/test/save_result`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                result_id: currentResultId,
+                duration_seconds: finalSeconds,
+                duration_formatted: formatTime(finalSeconds),
+                score: correctProbs.length,
+                total: PROB_KEYS.length,
+                correct_probs: correctProbs,
+                wrong_probs: wrongProbs
+            })
+        });
+    }
+
+    function submitTest() {
+        saveCurrentInput();
+        const unanswered = PROB_KEYS.filter(k => !(userAnswers[k] || '').trim()).length;
+        if (unanswered > 0) {
+            const ok = confirm(`Du har ${unanswered} obesvarad(e) uppgift(er). Vill du lämna in testet ändå?`);
+            if (!ok) return;
+        }
+
+        isSubmitted = true;
+        stopTimer();
+        submittedDuration = getElapsedSeconds();
+        currentResultId = `${DUGGA_ID}_${Date.now()}`;
+        sessionStorage.removeItem(STORAGE_KEY);
+
+        document.getElementById('test-view').style.display = 'none';
+        document.getElementById('result-view').style.display = 'block';
+        document.getElementById('final-time').textContent = `Tid: ${formatTime(submittedDuration)}`;
+
+        PROB_KEYS.forEach(key => {
+            const prob = PROBLEMS[key];
+            const ans = (userAnswers[key] || '').trim();
+            if (prob.options) {
+                grades[key] = (ans === prob.correct);
+                autoMatched[key] = true;
+            } else {
+                const res = autoGradeFreeText(ans, prob.answer);
+                grades[key] = res.grade;
+                autoMatched[key] = res.auto;
+            }
+        });
+
+        renderResults();
+        persistTestResult(submittedDuration);
+    }
+
+    function setGrade(key, isRight) {
+        grades[key] = isRight;
+        autoMatched[key] = false;
+        renderResults();
+        persistTestResult(submittedDuration);
+    }
+
+    function updateScoreSummary() {
+        const correctCount = PROB_KEYS.filter(k => grades[k] === true).length;
+        document.getElementById('score-summary').textContent = `${correctCount} / ${PROB_KEYS.length} rätt`;
+    }
+
+    function renderResults() {
+        updateScoreSummary();
+        const list = document.getElementById('results-list');
+        list.innerHTML = '';
+
+        PROB_KEYS.forEach(key => {
+            const prob = PROBLEMS[key];
+            const userAns = (userAnswers[key] || '').trim();
+            const grade = grades[key];
+
+            const card = document.createElement('div');
+            card.className = 'detail-card result-card';
+            if (grade === true) card.classList.add('is-correct');
+            else if (grade === false) card.classList.add('is-wrong');
+            else card.classList.add('is-pending');
+
+            let userDisplay = userAns ? userAns : '<em>Inget svar</em>';
+            if (prob.options && userAns && prob.options[userAns]) {
+                userDisplay = `<strong>${userAns}</strong>: ${prob.options[userAns]}`;
+            }
+
+            let correctDisplay = prob.options
+                ? `<strong>${prob.correct}</strong>: ${prob.options[prob.correct] || ''}`
+                : prob.answer;
+
+            const statusLabel = grade === true
+                ? (autoMatched[key] && !prob.options ? '✓ Rätt (auto)' : '✓ Rätt')
+                : (grade === false ? '✗ Fel' : 'Granska mot facit');
+
+            const statusColor = grade === true
+                ? '#22c55e'
+                : (grade === false ? '#ef4444' : '#eab308');
+
+            card.innerHTML = `
+                <div class="detail-header">
+                    <span class="problem-title">Uppgift ${key}</span>
+                    <span style="font-weight: 600; color: ${statusColor};">${statusLabel}</span>
+                </div>
+                <div class="problem-text">${prob.text}</div>
+                <div style="margin-top: 12px; padding: 10px 12px; border-radius: 8px; background: rgba(255,255,255,0.04);">
+                    <div style="margin-bottom: 6px;"><strong>Ditt svar:</strong> ${userDisplay}</div>
+                    <div><strong>Facit:</strong> ${correctDisplay}</div>
+                </div>
+                ${prob.explanation ? `
+                    <details style="margin-top: 10px;">
+                        <summary style="cursor: pointer; font-weight: 500; opacity: 0.85;">Visa lösningsförslag</summary>
+                        <div class="answer-content" style="margin-top: 8px;">${prob.explanation}</div>
+                    </details>
+                ` : ''}
+                ${!prob.options ? `
+                    <div class="grade-btns">
+                        <button type="button" class="grade-btn ${grade === true ? 'active-right' : ''}" onclick="setGrade('${key}', true)">✓ Rätt</button>
+                        <button type="button" class="grade-btn ${grade === false ? 'active-wrong' : ''}" onclick="setGrade('${key}', false)">✗ Fel</button>
+                    </div>
+                ` : ''}
+            `;
+            list.appendChild(card);
+        });
+
+        typesetMath(list);
+    }
+
+    async function syncProgress() {
+        const completedIds = PROB_KEYS.filter(k => grades[k] === true);
+        if (completedIds.length === 0) {
+            alert('Inga uppgifter är markerade som rätt ännu.');
+            return;
+        }
+
+        const btn = document.getElementById('sync-btn');
+        btn.disabled = true;
+        btn.textContent = 'Sparar...';
+
+        const res = await fetch(`/duggor/${DUGGA_ID}/test/sync`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ completed_ids: completedIds })
+        });
+
+        if (res.ok) {
+            btn.textContent = `Sparat (${completedIds.length} st) ✓`;
+            btn.classList.add('done');
+        } else {
+            btn.disabled = false;
+            btn.textContent = 'Fel vid sparning – försök igen';
+        }
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (document.getElementById('test-view').style.display === 'none') return;
+        if (document.activeElement.tagName === 'INPUT') {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                changeProblem(1);
+            }
+            return;
+        }
+        if (e.key === 'ArrowLeft') changeProblem(-1);
+        if (e.key === 'ArrowRight') changeProblem(1);
+    });
+
+    updateTimerDisplay();
+    startTimer();
+    renderProblem();
+</script>
+{% endblock %}

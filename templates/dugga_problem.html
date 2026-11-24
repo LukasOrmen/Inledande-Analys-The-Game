@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Uppgift {{ selected_prob }} - {{ dugga_title }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('view_dugga', dugga_id=dugga_id) }}" id="back-link" class="back-link">← {{ dugga_title }}</a>
+
+<div class="detail-card {% if prob_data.completed %}done{% endif %}">
+    <div>
+        <div class="detail-header">
+            <span class="problem-title">Uppgift {{ selected_prob }}</span>
+            <div class="title-actions">
+                <button id="copy-btn" class="btn-icon" onclick='copyRawProblemText({{ prob_data.text | tojson | safe }}, "Uppgift {{ selected_prob }}", {{ (prob_data.get("answer") or "Rätt svar: " + prob_data.get("correct", "")) | tojson | safe }})'>📋</button>
+                <form id="bookmark-form" method="POST" action="{{ url_for('bookmark_dugga_prob') }}" style="margin:0;">
+                    <input type="hidden" name="dugga_id" value="{{ dugga_id }}">
+                    <input type="hidden" name="prob" value="{{ selected_prob }}">
+                    <button type="submit" class="btn-icon {% if prob_data.bookmarked %}bookmarked{% endif %}">
+                        {% if prob_data.bookmarked %}⭐{% else %}☆{% endif %}
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="problem-text">{{ prob_data.text }}</div>
+
+                {% if prob_data.get('options') %}
+            <div class="mcq-options" id="mcq-container" data-correct="{{ prob_data.correct }}">
+                {% for letter in ['A', 'B', 'C', 'D', 'E'] %}
+                    {% if letter in prob_data.options %}
+                        <button type="button" class="mcq-btn" data-option="{{ letter }}" onclick="checkMcqAnswer(this, '{{ letter }}')">
+                            <span class="mcq-letter">{{ letter }}</span>
+                            <span class="mcq-text">{{ prob_data.options[letter] }}</span>
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="actions" style="margin-top: 24px;">
+        <div>
+            {% if prev_prob %}
+                <a href="{{ url_for('view_dugga_problem', dugga_id=dugga_id, prob_id=prev_prob) }}" id="nav-prev" class="btn">←</a>
+            {% else %}
+                <span id="nav-prev" class="btn disabled">←</span>
+            {% endif %}
+
+            {% if next_prob %}
+                <a href="{{ url_for('view_dugga_problem', dugga_id=dugga_id, prob_id=next_prob) }}" id="nav-next" class="btn">→</a>
+            {% else %}
+                <span id="nav-next" class="btn disabled">→</span>
+            {% endif %}
+        </div>
+
+        <form id="toggle-form" method="POST" action="{{ url_for('toggle_dugga_prob') }}" style="margin:0;">
+            <input type="hidden" name="dugga_id" value="{{ dugga_id }}">
+            <input type="hidden" name="prob" value="{{ selected_prob }}">
+            <button type="submit" class="btn btn-toggle {% if prob_data.completed %}done{% endif %}">
+                {% if prob_data.completed %}Klar{% else %}Markera klar{% endif %}
+            </button>
+        </form>
+    </div>
+</div>
+
+<div id="mcq-explanation" class="answer-box" style="display: {% if prob_data.completed %}block{% else %}none{% endif %};">
+    <div class="answer-title">
+        {% if prob_data.get('options') %}
+            Rätt svar: {{ prob_data.correct }}
+        {% else %}
+            Svar: {{ prob_data.answer }}
+        {% endif %}
+    </div>
+    {% if prob_data.get('explanation') %}
+        <div class="answer-content" style="margin-top: 6px;">{{ prob_data.explanation }}</div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,442 @@
+{
+    "dugga-2-231024": {
+        "title": "2023-10-24",
+        "problems": {
+            "1a": {
+                "text": "Beräkna $\\sum_{k=3}^{57} (5 \\cdot 2^k)$.",
+                "answer": "$40 \\cdot (2^{55} - 1)$",
+                "explanation": "Geometrisk summa med första term $a_1 = 5 \\cdot 2^3 = 40$, kvot $q = 2$ och antal termer $57 - 3 + 1 = 55$. Summan blir $40 \\cdot \\frac{2^{55}-1}{2-1} = 40 \\cdot (2^{55} - 1)$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1b": {
+                "text": "Bestäm alla reella $v$ sådana att $\\sin v = \\sin\\left(3v - \\frac{\\pi}{5}\\right)$.",
+                "answer": "$v = \\frac{\\pi}{10} - n\\pi$ eller $v = \\frac{3\\pi}{10} + \\frac{n\\pi}{2}$ ($n \\in \\mathbb{Z}$)",
+                "explanation": "$v = 3v - \\frac{\\pi}{5} + 2n\\pi$ eller $v = \\pi - \\left(3v - \\frac{\\pi}{5}\\right) + 2n\\pi$, vilket ger $2v = \\frac{\\pi}{5} - 2n\\pi \\iff v = \\frac{\\pi}{10} - n\\pi$ eller $4v = \\frac{6\\pi}{5} + 2n\\pi \\iff v = \\frac{3\\pi}{10} + \\frac{n\\pi}{2}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1c": {
+                "text": "Förenkla $\\tan\\left(\\arcsin \\frac{3}{5}\\right)$ så långt som möjligt.",
+                "answer": "$\\frac{3}{4}$",
+                "explanation": "Vinkeln $v = \\arcsin\\frac{3}{5} \\in (0, \\frac{\\pi}{2})$ motsvarar en rätvinklig triangel med hypotenusa $5$, motstående katet $3$ och närliggande katet $\\sqrt{5^2 - 3^2} = 4$. Alltså är $\\tan v = \\frac{3}{4}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1d": {
+                "text": "Beräkna $\\operatorname{Re}\\left(i + \\frac{3+i}{1-2i}\\right)$.",
+                "answer": "$\\frac{1}{5}$",
+                "explanation": "$i + \\frac{(3+i)(1+2i)}{(1-2i)(1+2i)} = i + \\frac{1+7i}{5} = \\frac{1}{5} + \\frac{12}{5}i$, så realdelen är $\\frac{1}{5}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1e": {
+                "text": "Förenkla uttrycket $\\frac{e^{2\\ln 3 - \\ln 2}}{\\sqrt{\\ln e^4} - \\ln\\sqrt{e}}$ så långt som möjligt.",
+                "answer": "$3$",
+                "explanation": "$e^{2\\ln 3 - \\ln 2} = e^{\\ln(9/2)} = \\frac{9}{2}$, $\\sqrt{\\ln e^4} = \\sqrt{4} = 2$ och $\\ln\\sqrt{e} = \\frac{1}{2}$. Kvoten blir $\\frac{9/2}{2 - 1/2} = \\frac{9/2}{3/2} = 3$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "2": {
+                "text": "För vilka reella $x$ är $2x + \\sqrt{7-4x} = 2$?",
+                "answer": "$x = -\\frac{1}{2}$",
+                "explanation": "$\\sqrt{7-4x} = 2 - 2x \\implies 7 - 4x = (2-2x)^2 \\iff 4x^2 - 4x - 3 = 0 \\iff x = \\frac{3}{2}$ eller $x = -\\frac{1}{2}$. Prövning visar att $x = \\frac{3}{2}$ ger VL $= 3 + 1 = 4 \\ne 2$ (falsk rot), medan $x = -\\frac{1}{2}$ ger VL $= -1 + 3 = 2 = $ HL (OK).",
+                "completed": false,
+                "bookmarked": false
+            },
+            "3": {
+                "text": "Bestäm alla reella lösningar till ekvationen $4^x = 2^{x+1} - \\frac{3}{4}$.",
+                "answer": "$x = -1$ eller $x = \\frac{\\ln 3 - \\ln 2}{\\ln 2}$",
+                "explanation": "Sätt $t = 2^x > 0$, vilket ger $t^2 = 2t - \\frac{3}{4} \\iff t = \\frac{1}{2}$ eller $t = \\frac{3}{2}$.\n• $2^x = \\frac{1}{2} = 2^{-1} \\iff x = -1$\n• $2^x = \\frac{3}{2} \\iff x = \\frac{\\ln(3/2)}{\\ln 2} = \\frac{\\ln 3 - \\ln 2}{\\ln 2}$",
+                "completed": false,
+                "bookmarked": false
+            },
+            "4": {
+                "text": "Lös ekvationen $2\\ln(2-x) - \\ln(14-3x) = \\ln 2$.",
+                "answer": "$x = -6$",
+                "explanation": "Definitionsmängd: $2 - x > 0$ och $14 - 3x > 0 \\iff x < 2$. Ekvationen skrivs om som $\\ln(2-x)^2 = \\ln(2(14-3x)) \\iff (2-x)^2 = 28 - 6x \\iff x^2 + 2x - 24 = 0 \\iff x = 4$ eller $x = -6$. Endast $x = -6$ uppfyller $x < 2$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "5": {
+                "text": "Skriv $\\sin^2 x \\cdot \\sin 5x$ som en summa av cosinus- och/eller sinustermer.",
+                "answer": "$\\frac{1}{4}(2\\sin 5x - \\sin 7x - \\sin 3x)$",
+                "explanation": "Med Eulers formler: $\\left(\\frac{e^{ix}-e^{-ix}}{2i}\\right)^2 \\cdot \\frac{e^{5ix}-e^{-5ix}}{2i} = -\\frac{1}{8i}(e^{2ix}-2+e^{-2ix})(e^{5ix}-e^{-5ix}) = -\\frac{1}{4}\\left(\\frac{e^{7ix}-e^{-7ix}}{2i} + \\frac{e^{3ix}-e^{-3ix}}{2i} - 2\\frac{e^{5ix}-e^{-5ix}}{2i}\\right) = \\frac{1}{4}(2\\sin 5x - \\sin 7x - \\sin 3x)$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "6": {
+                "text": "Betrakta funktionen $f(x) = \\sqrt{\\frac{x-2}{x+3}}$. Bestäm $D_f$ och, om möjligt, ett uttryck för den inversa funktionen $f^{-1}$.",
+                "answer": "$D_f = \\{x : x \\ge 2 \\text{ eller } x < -3\\}$, $f^{-1}(x) = \\frac{3x^2 + 2}{1 - x^2}$",
+                "explanation": "Teckentabell för $\\frac{x-2}{x+3} \\ge 0$ ger $D_f = (-\\infty, -3) \\cup [2, \\infty)$. För $y = \\sqrt{\\frac{x-2}{x+3}} \\ge 0$ fås $y^2(x+3) = x - 2 \\iff x(1 - y^2) = 3y^2 + 2 \\iff x = \\frac{3y^2 + 2}{1 - y^2}$, så $f^{-1}(x) = \\frac{3x^2 + 2}{1 - x^2}$ (för $0 \\le x < 1$).",
+                "completed": false,
+                "bookmarked": false
+            },
+            "7": {
+                "text": "Bestäm alla $x$ sådana att $\\sqrt{3}\\cos 4x - 3\\sin 4x = 3$ och $0 \\le x \\le 2\\pi$.",
+                "answer": "$x = -\\frac{\\pi}{8} + \\frac{n\\pi}{2}$ eller $x = -\\frac{\\pi}{24} + \\frac{n\\pi}{2}$ för $n = 1, 2, 3, 4$",
+                "explanation": "Hjälpvinkelmetoden ger $\\sqrt{3}\\cos 4x - 3\\sin 4x = \\sqrt{12}\\sin\\left(4x + \\frac{5\\pi}{6}\\right) = 3 \\iff \\sin\\left(4x + \\frac{5\\pi}{6}\\right) = \\frac{\\sqrt{3}}{2}$. Det ger $4x + \\frac{5\\pi}{6} = \\frac{\\pi}{3} + 2n\\pi$ eller $\\frac{2\\pi}{3} + 2n\\pi \\iff x = -\\frac{\\pi}{8} + \\frac{n\\pi}{2}$ eller $x = -\\frac{\\pi}{24} + \\frac{n\\pi}{2}$. I $[0, 2\\pi]$ ligger lösningarna för $n = 1, 2, 3, 4$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "8": {
+                "text": "Bestäm alla lösningar till ekvationen $z^7 = \\frac{1-i}{\\sqrt{12}+2i}$.",
+                "answer": "$z = \\frac{1}{\\sqrt[14]{8}} e^{\\left(-\\frac{5\\pi}{84} + \\frac{2n\\pi}{7}\\right)i}$ där $n = 0, 1, 2, 3, 4, 5, 6$",
+                "explanation": "Polär form: $1 - i = \\sqrt{2}e^{-\\pi i/4}$ och $\\sqrt{12} + 2i = 4e^{\\pi i/6}$, så kvoten är $\\frac{\\sqrt{2}}{4}e^{-5\\pi i/12} = 2^{-3/2}e^{-5\\pi i/12}$. Med $z = re^{iv}$ fås $r^7 = 2^{-3/2} \\iff r = 2^{-3/14} = \\frac{1}{\\sqrt[14]{8}}$ och $7v = -\\frac{5\\pi}{12} + 2n\\pi \\iff v = -\\frac{5\\pi}{84} + \\frac{2n\\pi}{7}$ för $n = 0, 1, \\dots, 6$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "9": {
+                "text": "Den hyperboliska funktionen $\\sinh$ definieras som $\\sinh x = \\frac{e^x - e^{-x}}{2}$ för reella $x$. Visa att $\\sinh x$ är en strängt växande funktion och bestäm dess invers.",
+                "answer": "$f^{-1}(x) = \\ln\\left(x + \\sqrt{x^2 + 1}\\right)$",
+                "explanation": "Om $x_2 > x_1$ är $e^{x_2} > e^{x_1}$ och $e^{-x_1} > e^{-x_2}$, så $\\sinh x_2 - \\sinh x_1 = \\frac{(e^{x_2}-e^{x_1}) + (e^{-x_1}-e^{-x_2})}{2} > 0$, dvs. $\\sinh$ är strängt växande. För inversen sätt $t = e^x > 0$ i $y = \\frac{t - t^{-1}}{2} \\iff t^2 - 2yt - 1 = 0 \\iff t = y \\pm \\sqrt{y^2+1}$. Då $t > 0$ måste $t = y + \\sqrt{y^2+1}$, så $f^{-1}(x) = \\ln(x + \\sqrt{x^2+1})$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "10": {
+                "text": "Förenkla $\\alpha = 2\\arccos\\left(-\\frac{\\sqrt{3}+1}{2\\sqrt{2}}\\right)$ så långt som möjligt.",
+                "answer": "$\\alpha = \\frac{11\\pi}{6}$",
+                "explanation": "Eftersom $-1 < -\\frac{\\sqrt{3}+1}{2\\sqrt{2}} < 0$ ligger $\\frac{\\alpha}{2} = \\arccos\\left(-\\frac{\\sqrt{3}+1}{2\\sqrt{2}}\\right)$ i $(\\frac{\\pi}{2}, \\pi)$, vilket ger $\\pi < \\alpha < 2\\pi$. Vidare är $\\cos\\alpha = 2\\cos^2\\frac{\\alpha}{2} - 1 = 2 \\cdot \\frac{4+2\\sqrt{3}}{8} - 1 = \\frac{\\sqrt{3}}{2}$, så $\\alpha = \\pm\\frac{\\pi}{6} + 2n\\pi$. Den enda lösningen i $(\\pi, 2\\pi)$ är $\\alpha = \\frac{11\\pi}{6}$.",
+                "completed": false,
+                "bookmarked": false
+            }
+        }
+    },
+    "dugga-2-231124": {
+        "title": "2023-11-24",
+        "problems": {
+            "1a": {
+                "text": "Beräkna $\\binom{20}{18} + \\binom{20}{19}$.",
+                "answer": "$210$",
+                "explanation": "Pascals identitet ger $\\binom{20}{18} + \\binom{20}{19} = \\binom{21}{19} = \\binom{21}{2} = \\frac{21 \\cdot 20}{2} = 210$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1b": {
+                "text": "Bestäm alla reella $v$ sådana att $\\cos\\left(3v + \\frac{2\\pi}{5}\\right) = \\cos v$.",
+                "answer": "$v = -\\frac{\\pi}{5} + n\\pi$ eller $v = -\\frac{\\pi}{10} + \\frac{n\\pi}{2}$ ($n \\in \\mathbb{Z}$)",
+                "explanation": "$3v + \\frac{2\\pi}{5} = \\pm v + 2n\\pi$ ger antingen $2v = -\\frac{2\\pi}{5} + 2n\\pi \\iff v = -\\frac{\\pi}{5} + n\\pi$ eller $4v = -\\frac{2\\pi}{5} + 2n\\pi \\iff v = -\\frac{\\pi}{10} + \\frac{n\\pi}{2}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1c": {
+                "text": "Skriv talet $z = i - \\sqrt{3}$ på polär form.",
+                "answer": "$2e^{5\\pi i / 6}$",
+                "explanation": "$z = -\\sqrt{3} + i = 2\\left(-\\frac{\\sqrt{3}}{2} + \\frac{1}{2}i\\right) = 2\\left(\\cos\\frac{5\\pi}{6} + i\\sin\\frac{5\\pi}{6}\\right) = 2e^{5\\pi i/6}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1d": {
+                "text": "Förenkla $\\frac{1}{3}\\ln 3 - e^{-2\\ln 3} \\cdot \\ln\\frac{27}{e^9}$ så långt som möjligt.",
+                "answer": "$1$",
+                "explanation": "$\\frac{1}{3}\\ln 3 - 3^{-2}(\\ln 3^3 - 9) = \\frac{1}{3}\\ln 3 - \\frac{1}{9}(3\\ln 3 - 9) = \\frac{1}{3}\\ln 3 - \\frac{1}{3}\\ln 3 + 1 = 1$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1e": {
+                "text": "Förenkla $\\sin(\\arctan 5)$ så långt som möjligt.",
+                "answer": "$\\frac{5}{\\sqrt{26}}$",
+                "explanation": "Vinkeln $v = \\arctan 5 \\in (0, \\frac{\\pi}{2})$ motsvarar en rätvinklig triangel med motstående katet $5$, närliggande katet $1$ och hypotenusa $\\sqrt{5^2+1^2} = \\sqrt{26}$. Därmed är $\\sin v = \\frac{5}{\\sqrt{26}}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "2": {
+                "text": "Bestäm alla reella lösningar till ekvationen $9^x + 8 = 3^{x+2}$.",
+                "answer": "$x = 0$ eller $x = \\frac{3\\ln 2}{\\ln 3}$",
+                "explanation": "Sätt $t = 3^x > 0$: $t^2 + 8 = 9t \\iff t = 1$ eller $t = 8$.\n• $3^x = 1 \\iff x = 0$\n• $3^x = 8 \\iff x = \\frac{\\ln 8}{\\ln 3} = \\frac{3\\ln 2}{\\ln 3}$",
+                "completed": false,
+                "bookmarked": false
+            },
+            "3": {
+                "text": "Lös ekvationen $|x+3| - 4x = |2x-3|$.",
+                "answer": "$x = 0$",
+                "explanation": "Falluppdelning kring $x = -3$ och $x = \\frac{3}{2}$:\n• $x \\le -3$: $-(x+3) - 4x = -(2x-3) \\iff x = -2$ (Ej i intervallet)\n• $-3 \\le x \\le \\frac{3}{2}$: $x + 3 - 4x = -(2x-3) \\iff x = 0$ (OK)\n• $x \\ge \\frac{3}{2}$: $x + 3 - 4x = 2x - 3 \\iff x = \\frac{6}{5}$ (Ej i intervallet)",
+                "completed": false,
+                "bookmarked": false
+            },
+            "4": {
+                "text": "Skriv $\\sin^2 x \\cdot \\cos 4x$ som en summa av cosinus- och/eller sinustermer.",
+                "answer": "$\\frac{1}{4}(2\\cos 4x - \\cos 6x - \\cos 2x)$",
+                "explanation": "Eulers formler ger $\\left(\\frac{e^{ix}-e^{-ix}}{2i}\\right)^2 \\cdot \\frac{e^{4ix}+e^{-4ix}}{2} = -\\frac{1}{8}(e^{2ix}-2+e^{-2ix})(e^{4ix}+e^{-4ix}) = -\\frac{1}{4}\\left(\\frac{e^{6ix}+e^{-6ix}}{2} + \\frac{e^{2ix}+e^{-2ix}}{2} - 2\\frac{e^{4ix}+e^{-4ix}}{2}\\right) = \\frac{1}{4}(2\\cos 4x - \\cos 6x - \\cos 2x)$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "5": {
+                "text": "Lös ekvationen $\\ln(x+10) = 2\\ln(2-x)$.",
+                "answer": "$x = -1$",
+                "explanation": "Definitionsmängd: $x + 10 > 0$ och $2 - x > 0 \\iff -10 < x < 2$. Ekvationen ger $\\ln(x+10) = \\ln(2-x)^2 \\iff x + 10 = (2-x)^2 \\iff x^2 - 5x - 6 = 0 \\iff x = 6$ eller $x = -1$. Endast $x = -1$ ligger i $(-10, 2)$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "6": {
+                "text": "Betrakta funktionen $f(x) = \\ln\\frac{x}{x+4}$. Bestäm $D_f$ och, om möjligt, ett uttryck för den inversa funktionen $f^{-1}$.",
+                "answer": "$D_f = \\{x : x > 0 \\text{ eller } x < -4\\}$, $f^{-1}(x) = \\frac{4e^x}{1 - e^x}$",
+                "explanation": "Teckentabell för $\\frac{x}{x+4} > 0$ ger $D_f = (-\\infty, -4) \\cup (0, \\infty)$. För $y = \\ln\\frac{x}{x+4}$ fås $e^y = \\frac{x}{x+4} \\iff x(1 - e^y) = 4e^y \\iff x = \\frac{4e^y}{1 - e^y}$, så $f^{-1}(x) = \\frac{4e^x}{1 - e^x}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "7a": {
+                "text": "Visa, utgående från räknelagar för sinus och cosinus, att $\\tan 2x = \\frac{2\\tan x}{1 - \\tan^2 x}$.",
+                "answer": "Se lösningsförslag",
+                "explanation": "$\\tan 2x = \\frac{\\sin 2x}{\\cos 2x} = \\frac{2\\sin x\\cos x}{\\cos^2 x - \\sin^2 x}$. Förkortning av täljare och nämnare med $\\cos^2 x$ ger $\\frac{2\\frac{\\sin x}{\\cos x}}{1 - \\frac{\\sin^2 x}{\\cos^2 x}} = \\frac{2\\tan x}{1 - \\tan^2 x}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "7b": {
+                "text": "Lös ekvationen $\\cos 2x = 3\\cos x + 1$.",
+                "answer": "$x = \\pm\\frac{2\\pi}{3} + 2n\\pi$ ($n \\in \\mathbb{Z}$)",
+                "explanation": "$2\\cos^2 x - 1 = 3\\cos x + 1 \\iff 2\\cos^2 x - 3\\cos x - 2 = 0$, vilket ger $\\cos x = -\\frac{1}{2}$ eller $\\cos x = 2$ (saknar lösning). $\\cos x = -\\frac{1}{2} \\iff x = \\pm\\frac{2\\pi}{3} + 2n\\pi$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "8": {
+                "text": "En aritmetisk summa med 10 termer har egenskaperna att produkten av de två första termerna är lika stor som den 9:e termen, och summan av 4:e och 5:e termen är 2 mindre än den 10:e termen. Vilka värden kan 9:e termen anta?",
+                "answer": "$28$ eller $\\frac{4}{3}$",
+                "explanation": "Låt första termen vara $a$ och differensen $d$. Villkoren ger $a(a+d) = a + 8d$ och $(a+3d) + (a+4d) = (a+9d) - 2 \\iff d = \\frac{a}{2} + 1$. Insättning ger $3a^2 - 8a - 16 = 0 \\iff a = 4$ (med $d = 3$) eller $a = -\\frac{4}{3}$ (med $d = \\frac{1}{3}$). Den 9:e termen $a_9 = a + 8d$ blir då $4 + 24 = 28$ eller $-\\frac{4}{3} + \\frac{8}{3} = \\frac{4}{3}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "9": {
+                "text": "Förenkla uttrycket $\\arctan 2 + \\arctan 5 + \\arctan 8$ så långt som möjligt.",
+                "answer": "$\\frac{5\\pi}{4}$",
+                "explanation": "Sätt $v = \\arctan 2 + \\arctan 5 + \\arctan 8$. Eftersom varje term ligger i $(\\frac{\\pi}{4}, \\frac{\\pi}{2})$ gäller $\\frac{3\\pi}{4} < v < \\frac{3\\pi}{2}$. Vidare är $\\tan(\\arctan 2 + \\arctan 5) = \\frac{2+5}{1-2\\cdot 5} = -\\frac{7}{9}$, och $\\tan v = \\frac{-7/9 + 8}{1 - (-7/9)\\cdot 8} = \\frac{65/9}{65/9} = 1$. Enda vinkeln i $(\\frac{3\\pi}{4}, \\frac{3\\pi}{2})$ med $\\tan v = 1$ är $v = \\frac{5\\pi}{4}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "10": {
+                "text": "Sök alla reella $x$ sådana att $e^{1/x} \\ge \\frac{5e^{1/x} + 9}{3e^{1/x} - 1}$.",
+                "answer": "$-\\frac{1}{\\ln 3} < x < 0$ eller $0 < x \\le \\frac{1}{\\ln 3}$",
+                "explanation": "Sätt $t = e^{1/x} > 0$: $t - \\frac{5t+9}{3t-1} \\ge 0 \\iff \\frac{(t-3)(t+1)}{3t-1} \\ge 0$. Då $t+1 > 0$ ger teckentabell att $t \\ge 3$ eller $0 < t < \\frac{1}{3}$, dvs. $e^{1/x} \\ge 3 \\iff \\frac{1}{x} \\ge \\ln 3 \\iff 0 < x \\le \\frac{1}{\\ln 3}$, eller $e^{1/x} < \\frac{1}{3} \\iff \\frac{1}{x} < -\\ln 3 \\iff -\\frac{1}{\\ln 3} < x < 0$.",
+                "completed": false,
+                "bookmarked": false
+            }
+        }
+    },
+    "dugga-2-241101": {
+        "title": "2024-11-01",
+        "problems": {
+            "1a": {
+                "text": "Bestäm absolutbeloppet av $z = \\frac{i - 4}{3 - 5i}$.",
+                "answer": "$|z| = \\frac{1}{\\sqrt{2}}$",
+                "explanation": "$|z| = \\frac{|i - 4|}{|3 - 5i|} = \\frac{\\sqrt{1^2 + (-4)^2}}{\\sqrt{3^2 + (-5)^2}} = \\frac{\\sqrt{17}}{\\sqrt{34}} = \\frac{1}{\\sqrt{2}}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1b": {
+                "text": "Beräkna $\\sum_{k=10}^{100} (3 \\cdot 2^k)$.",
+                "answer": "$3 \\cdot (2^{101} - 2^{10})$",
+                "explanation": "Geometrisk summa med första term $3 \\cdot 2^{10}$, kvot $2$ och $100 - 10 + 1 = 91$ termer: $3 \\cdot 2^{10} \\cdot \\frac{2^{91} - 1}{2 - 1} = 3 \\cdot (2^{101} - 2^{10})$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1c": {
+                "text": "Bestäm alla reella $v$ sådana att $\\sin\\left(3v + \\frac{\\pi}{7}\\right) = \\sin 2v$.",
+                "answer": "$v = -\\frac{\\pi}{7} + 2n\\pi$ eller $v = \\frac{6\\pi}{35} + \\frac{2n\\pi}{5}$ ($n \\in \\mathbb{Z}$)",
+                "explanation": "$3v + \\frac{\\pi}{7} = 2v + 2n\\pi \\iff v = -\\frac{\\pi}{7} + 2n\\pi$, eller $3v + \\frac{\\pi}{7} = \\pi - 2v + 2n\\pi \\iff 5v = \\frac{6\\pi}{7} + 2n\\pi \\iff v = \\frac{6\\pi}{35} + \\frac{2n\\pi}{5}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1d": {
+                "text": "För vilka reella $x$ är $\\ln\\frac{5-x}{8-x}$ definierad?",
+                "answer": "$x < 5$ eller $x > 8$",
+                "explanation": "Logaritmen kräver $\\frac{5-x}{8-x} > 0$, vilket gäller då täljare och nämnare har samma tecken, dvs. $x < 5$ eller $x > 8$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1e": {
+                "text": "Beräkna $\\tan\\left(\\arccos \\frac{3}{5}\\right)$.",
+                "answer": "$\\frac{4}{3}$",
+                "explanation": "Vinkeln $v = \\arccos\\frac{3}{5} \\in (0, \\frac{\\pi}{2})$ motsvarar en rätvinklig triangel med närliggande katet $3$, hypotenusa $5$ och motstående katet $\\sqrt{5^2 - 3^2} = 4$, så $\\tan v = \\frac{4}{3}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "2": {
+                "text": "För vilka reella $x$ är $2|x-3| = 2 + |x|$?",
+                "answer": "$x = \\frac{4}{3}$ eller $x = 8$",
+                "explanation": "Falluppdelning kring $x = 0$ och $x = 3$:\n• $x \\le 0$: $2(3-x) = 2 - x \\iff x = 4$ (Ej i intervallet)\n• $0 \\le x \\le 3$: $2(3-x) = 2 + x \\iff x = \\frac{4}{3}$ (OK)\n• $x \\ge 3$: $2(x-3) = 2 + x \\iff x = 8$ (OK)",
+                "completed": false,
+                "bookmarked": false
+            },
+            "3": {
+                "text": "För vilka reella $x$ gäller sambandet $4^{x+1} + 3 \\cdot 2^x = 1$?",
+                "answer": "$x = -2$",
+                "explanation": "$4(2^x)^2 + 3 \\cdot 2^x - 1 = 0$. Med $t = 2^x > 0$ fås $4t^2 + 3t - 1 = 0 \\iff t = -1$ eller $t = \\frac{1}{4}$. Då $t > 0$ är $2^x = \\frac{1}{4} = 2^{-2} \\iff x = -2$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "4": {
+                "text": "Bestäm alla lösningar till ekvationen $\\ln(x-2) + \\ln(x+1) - \\ln(3-x) = 0$.",
+                "answer": "$x = \\sqrt{5}$",
+                "explanation": "Definitionsmängd: $x > 2$, $x > -1$ och $x < 3 \\iff 2 < x < 3$. Ekvationen ger $\\ln((x-2)(x+1)) = \\ln(3-x) \\iff x^2 - x - 2 = 3 - x \\iff x^2 = 5 \\iff x = \\pm\\sqrt{5}$. Endast $x = \\sqrt{5}$ ligger i $(2, 3)$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "5": {
+                "text": "Skriv $\\sin^2 2x \\cos 3x$ som en summa av cosinus- och/eller sinustermer.",
+                "answer": "$\\frac{1}{4}(2\\cos 3x - \\cos 7x - \\cos x)$",
+                "explanation": "Eulers formler ger $\\left(\\frac{e^{2ix}-e^{-2ix}}{2i}\\right)^2 \\cdot \\frac{e^{3ix}+e^{-3ix}}{2} = -\\frac{1}{8}(e^{4ix}-2+e^{-4ix})(e^{3ix}+e^{-3ix}) = -\\frac{1}{4}(\\cos 7x - 2\\cos 3x + \\cos x) = \\frac{1}{4}(2\\cos 3x - \\cos 7x - \\cos x)$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "6": {
+                "text": "Betrakta funktionen $f(x) = \\frac{e^{2x} + 1}{3e^{2x} - 2}$. Bestäm $D_f$ och, om möjligt, ett uttryck för den inversa funktionen $f^{-1}$.",
+                "answer": "$D_f = \\left\\{x : x \\ne \\frac{1}{2}\\ln\\frac{2}{3}\\right\\}$, $f^{-1}(x) = \\frac{1}{2}\\ln\\frac{2x + 1}{3x - 1}$",
+                "explanation": "Nämnaren är noll då $3e^{2x} = 2 \\iff x = \\frac{1}{2}\\ln\\frac{2}{3}$. För $y = \\frac{e^{2x}+1}{3e^{2x}-2}$ fås $e^{2x}(3y - 1) = 2y + 1 \\iff x = \\frac{1}{2}\\ln\\frac{2y+1}{3y-1}$, så $f^{-1}(x) = \\frac{1}{2}\\ln\\frac{2x+1}{3x-1}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "7": {
+                "text": "Bestäm alla lösningar till ekvationen $z^7 = \\frac{i\\sqrt{3} - 1}{\\sqrt{12} + 2i}$.",
+                "answer": "$z = \\frac{1}{\\sqrt[7]{2}} e^{\\left(\\frac{\\pi}{14} + \\frac{2n\\pi}{7}\\right)i}$ där $n = 0, 1, 2, 3, 4, 5, 6$",
+                "explanation": "Polär form: $-1 + i\\sqrt{3} = 2e^{2\\pi i/3}$ och $\\sqrt{12} + 2i = 4e^{\\pi i/6}$, så kvoten är $\\frac{2}{4}e^{2\\pi i/3 - \\pi i/6} = \\frac{1}{2}e^{\\pi i/2}$. Med $z = re^{iv}$ fås $r^7 = \\frac{1}{2} \\iff r = \\frac{1}{\\sqrt[7]{2}}$ och $7v = \\frac{\\pi}{2} + 2n\\pi \\iff v = \\frac{\\pi}{14} + \\frac{2n\\pi}{7}$ för $n = 0, 1, \\dots, 6$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "8a": {
+                "text": "Rita grafen till funktionen $f(x) = 2\\arccos(x-1)$. Axlarna måste vara så tydligt graderade så att $D_f$ och $V_f$ kan avläsas i din figur.",
+                "answer": "$D_f = [0, 2]$, $V_f = [0, 2\\pi]$",
+                "explanation": "Definierad då $-1 \\le x - 1 \\le 1 \\iff 0 \\le x \\le 2$. Eftersom $V_{\\arccos} = [0, \\pi]$ blir $V_f = [0, 2\\pi]$. Grafen är den vanliga $\\arccos$-kurvan förskjuten $1$ enhet åt höger och utdragen med faktor $2$ i $y$-led (från $(0, 2\\pi)$ via $(1, \\pi)$ till $(2, 0)$).",
+                "completed": false,
+                "bookmarked": false
+            },
+            "8b": {
+                "text": "Förenkla $\\arcsin(\\sin 4) + \\arccos(\\cos 4) + \\arctan(\\tan 4)$ så långt som möjligt.",
+                "answer": "$2\\pi - 4$",
+                "explanation": "• $\\arcsin(\\sin 4) = \\arcsin(\\sin(\\pi - 4)) = \\pi - 4$ ty $-\\frac{\\pi}{2} \\le \\pi - 4 \\le \\frac{\\pi}{2}$\n• $\\arccos(\\cos 4) = \\arccos(\\cos(2\\pi - 4)) = 2\\pi - 4$ ty $0 \\le 2\\pi - 4 \\le \\pi$\n• $\\arctan(\\tan 4) = \\arctan(\\tan(4 - \\pi)) = 4 - \\pi$ ty $-\\frac{\\pi}{2} < 4 - \\pi < \\frac{\\pi}{2}$\nSumman blir $(\\pi - 4) + (2\\pi - 4) + (4 - \\pi) = 2\\pi - 4$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "9": {
+                "text": "Polynomet $P(z) = 12z^3 - 16z^2 - z + 10$ har ett nollställe $z_0$ med $\\operatorname{Re}(z_0) = 1$. Faktorisera $P(z)$ så långt som möjligt.",
+                "answer": "$P(z) = 12\\left(z + \\frac{2}{3}\\right)\\left(z - 1 - \\frac{1}{2}i\\right)\\left(z - 1 + \\frac{1}{2}i\\right)$",
+                "explanation": "Eftersom $P(1) = 5 \\ne 0$ är $z_0 = 1 + ai$ ($a \\ne 0$), och då $P$ har reella koefficienter är även $1 - ai$ ett nollställe. Polynomdivision med $(z-1-ai)(z-1+ai) = z^2 - 2z + 1 + a^2$ ger kvoten $12z + 8$ och resten $(3 - 12a^2)z + (2 - 8a^2) = 0 \\iff a = \\pm\\frac{1}{2}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "10": {
+                "text": "Lös ekvationen $2\\arcsin x - \\arccos 2x = 0$.",
+                "answer": "$x = \\frac{\\sqrt{3} - 1}{2}$",
+                "explanation": "Definitionsmängd: $-\\frac{1}{2} \\le x \\le \\frac{1}{2}$. Cosinus på båda led i $2\\arcsin x = \\arccos 2x$ ger $1 - 2\\sin^2(\\arcsin x) = 2x \\iff 2x^2 + 2x - 1 = 0 \\iff x = \\frac{-1 \\pm \\sqrt{3}}{2}$. Endast $x = \\frac{\\sqrt{3}-1}{2}$ ligger i $[-\\frac{1}{2}, \\frac{1}{2}]$, och för detta $x$ ligger både $2\\arcsin x$ och $\\arccos 2x$ i $(0, \\frac{\\pi}{2})$ där $\\cos$ är injektiv.",
+                "completed": false,
+                "bookmarked": false
+            }
+        }
+    },
+    "dugga-2-241122": {
+        "title": "2024-11-22",
+        "problems": {
+            "1a": {
+                "text": "Beräkna $\\sum_{k=2}^{32} (3k - 1)$.",
+                "answer": "$1550$",
+                "explanation": "Aritmetisk summa med första term $3(2)-1 = 5$, sista term $3(32)-1 = 95$ och $32 - 2 + 1 = 31$ termer: $31 \\cdot \\frac{5 + 95}{2} = 31 \\cdot 50 = 1550$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1b": {
+                "text": "Bestäm alla reella $v$ sådana att $\\cos\\left(3v + \\frac{\\pi}{7}\\right) = \\cos 2v$.",
+                "answer": "$v = -\\frac{\\pi}{7} + 2n\\pi$ eller $v = -\\frac{\\pi}{35} + \\frac{2n\\pi}{5}$ ($n \\in \\mathbb{Z}$)",
+                "explanation": "$3v + \\frac{\\pi}{7} = \\pm 2v + 2n\\pi$ ger antingen $v = -\\frac{\\pi}{7} + 2n\\pi$ eller $5v = -\\frac{\\pi}{7} + 2n\\pi \\iff v = -\\frac{\\pi}{35} + \\frac{2n\\pi}{5}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1c": {
+                "text": "Skriv $z = 4e^{2\\pi i / 3}$ på formen $a + bi$ (förenklat så långt som möjligt).",
+                "answer": "$-2 + 2\\sqrt{3}i$",
+                "explanation": "$z = 4\\left(\\cos\\frac{2\\pi}{3} + i\\sin\\frac{2\\pi}{3}\\right) = 4\\left(-\\frac{1}{2} + i\\frac{\\sqrt{3}}{2}\\right) = -2 + 2\\sqrt{3}i$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1d": {
+                "text": "Beräkna $\\cos\\left(\\arcsin \\frac{1}{4}\\right)$.",
+                "answer": "$\\frac{\\sqrt{15}}{4}$",
+                "explanation": "Vinkeln $v = \\arcsin\\frac{1}{4} \\in (0, \\frac{\\pi}{2})$ motsvarar en rätvinklig triangel med hypotenusa $4$, motstående katet $1$ och närliggande katet $\\sqrt{4^2 - 1^2} = \\sqrt{15}$, så $\\cos v = \\frac{\\sqrt{15}}{4}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "1e": {
+                "text": "Förenkla uttrycket $e^{2\\ln 3 - \\ln 2} \\cdot \\ln\\sqrt{e}$ så långt som möjligt.",
+                "answer": "$\\frac{9}{4}$",
+                "explanation": "$\\frac{e^{\\ln 9}}{e^{\\ln 2}} \\cdot \\frac{1}{2}\\ln e = \\frac{9}{2} \\cdot \\frac{1}{2} = \\frac{9}{4}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "2": {
+                "text": "För vilka reella $x$ är $\\frac{2x-1}{x+2} \\le \\frac{2x-5}{x-2}$?",
+                "answer": "$-2 < x < 2$ eller $x \\ge 3$",
+                "explanation": "$\\frac{(2x-1)(x-2) - (2x-5)(x+2)}{(x+2)(x-2)} \\le 0 \\iff \\frac{-4x + 12}{(x+2)(x-2)} \\le 0 \\iff \\frac{x-3}{(x+2)(x-2)} \\ge 0$. Teckentabell kring $-2, 2, 3$ ger $-2 < x < 2$ eller $x \\ge 3$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "3": {
+                "text": "För vilka reella $x$ gäller sambandet $9^x - 3^{x+2} = 10$?",
+                "answer": "$x = \\frac{\\ln 10}{\\ln 3}$",
+                "explanation": "Sätt $t = 3^x > 0$: $t^2 - 9t - 10 = 0 \\iff t = 10$ eller $t = -1$. Då $t > 0$ är $3^x = 10 \\iff x = \\frac{\\ln 10}{\\ln 3}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "4": {
+                "text": "Lös ekvationen $\\ln(x+3) + \\ln(2-x) = \\ln(2-4x)$.",
+                "answer": "$x = -1$",
+                "explanation": "Definitionsmängd: $x > -3$, $x < 2$ och $x < \\frac{1}{2} \\iff -3 < x < \\frac{1}{2}$. Ekvationen ger $\\ln((x+3)(2-x)) = \\ln(2-4x) \\iff x^2 - 3x - 4 = 0 \\iff x = -1$ eller $x = 4$. Endast $x = -1$ ligger i $(-3, \\frac{1}{2})$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "5": {
+                "text": "Skriv $\\cos^2 2x \\sin x$ som en summa av cosinus- och/eller sinustermer.",
+                "answer": "$\\frac{1}{4}(\\sin 5x - \\sin 3x + 2\\sin x)$",
+                "explanation": "Eulers formler ger $\\left(\\frac{e^{2ix}+e^{-2ix}}{2}\\right)^2 \\cdot \\frac{e^{ix}-e^{-ix}}{2i} = \\frac{1}{8i}(e^{4ix}+2+e^{-4ix})(e^{ix}-e^{-ix}) = \\frac{1}{4}\\left(\\frac{e^{5ix}-e^{-5ix}}{2i} - \\frac{e^{3ix}-e^{-3ix}}{2i} + 2\\frac{e^{ix}-e^{-ix}}{2i}\\right) = \\frac{1}{4}(\\sin 5x - \\sin 3x + 2\\sin x)$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "6": {
+                "text": "Betrakta funktionen $f(x) = \\frac{1}{1 + \\ln(6-x)}$. Bestäm $D_f$ och, om möjligt, ett uttryck för den inversa funktionen $f^{-1}$.",
+                "answer": "$D_f = \\left\\{x : x < 6, x \\ne 6 - \\frac{1}{e}\\right\\}$, $f^{-1}(x) = 6 - e^{(1-x)/x}$",
+                "explanation": "Logaritmen kräver $6 - x > 0 \\iff x < 6$, och nämnaren $1 + \\ln(6-x) \\ne 0 \\iff x \\ne 6 - e^{-1}$. För $y = \\frac{1}{1 + \\ln(6-x)}$ fås $\\ln(6-x) = \\frac{1-y}{y} \\iff x = 6 - e^{(1-y)/y}$, så $f^{-1}(x) = 6 - e^{(1-x)/x}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "7": {
+                "text": "Lös ekvationen $3\\sin 5x - \\sqrt{3}\\cos 5x = 3$.",
+                "answer": "$x = \\frac{\\pi}{10} + \\frac{2n\\pi}{5}$ eller $x = \\frac{\\pi}{6} + \\frac{2n\\pi}{5}$ ($n \\in \\mathbb{Z}$)",
+                "explanation": "Hjälpvinkelmetoden ger $\\sqrt{12}\\sin\\left(5x - \\frac{\\pi}{6}\\right) = 3 \\iff \\sin\\left(5x - \\frac{\\pi}{6}\\right) = \\frac{\\sqrt{3}}{2}$, vilket ger $5x - \\frac{\\pi}{6} = \\frac{\\pi}{3} + 2n\\pi \\iff x = \\frac{\\pi}{10} + \\frac{2n\\pi}{5}$ eller $5x - \\frac{\\pi}{6} = \\frac{2\\pi}{3} + 2n\\pi \\iff x = \\frac{\\pi}{6} + \\frac{2n\\pi}{5}$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "8a": {
+                "text": "Rita grafen till funktionen $f(x) = 1 + 3\\arcsin 2x$. Rita en tydlig figur, så att definitionsmängd och värdemängd enkelt kan avläsas.",
+                "answer": "$D_f = \\left[-\\frac{1}{2}, \\frac{1}{2}\\right]$, $V_f = \\left[1 - \\frac{3\\pi}{2}, 1 + \\frac{3\\pi}{2}\\right]$",
+                "explanation": "Definierad då $-1 \\le 2x \\le 1 \\iff -\\frac{1}{2} \\le x \\le \\frac{1}{2}$. Eftersom $V_{\\arcsin} = [-\\frac{\\pi}{2}, \\frac{\\pi}{2}]$ blir $V_f = [1 - \\frac{3\\pi}{2}, 1 + \\frac{3\\pi}{2}]$. Grafen går strängt växande från $(-\\frac{1}{2}, 1 - \\frac{3\\pi}{2})$ genom $(0, 1)$ till $(\\frac{1}{2}, 1 + \\frac{3\\pi}{2})$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "8b": {
+                "text": "Förenkla $\\arcsin(\\sin 2) + \\arctan(\\tan 3) + \\arccos(\\cos 4)$ så långt som möjligt.",
+                "answer": "$2\\pi - 3$",
+                "explanation": "• $\\arcsin(\\sin 2) = \\arcsin(\\sin(\\pi - 2)) = \\pi - 2$ ty $-\\frac{\\pi}{2} \\le \\pi - 2 \\le \\frac{\\pi}{2}$\n• $\\arctan(\\tan 3) = \\arctan(\\tan(3 - \\pi)) = 3 - \\pi$ ty $-\\frac{\\pi}{2} < 3 - \\pi < \\frac{\\pi}{2}$\n• $\\arccos(\\cos 4) = \\arccos(\\cos(2\\pi - 4)) = 2\\pi - 4$ ty $0 \\le 2\\pi - 4 \\le \\pi$\nSumman blir $(\\pi - 2) + (3 - \\pi) + (2\\pi - 4) = 2\\pi - 3$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "9a": {
+                "text": "Förenkla uttrycket $\\cosh^2 x - \\sinh^2 x$ så långt som möjligt.",
+                "answer": "$1$",
+                "explanation": "$\\left(\\frac{e^x + e^{-x}}{2}\\right)^2 - \\left(\\frac{e^x - e^{-x}}{2}\\right)^2 = \\frac{(e^{2x} + 2 + e^{-2x}) - (e^{2x} - 2 + e^{-2x})}{4} = \\frac{4}{4} = 1$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "9b": {
+                "text": "Låt $f(x) = \\cosh x$, $x \\le 0$. Bestäm ett uttryck för $f^{-1}$, om den existerar.",
+                "answer": "$f^{-1}(x) = \\ln\\left(x - \\sqrt{x^2 - 1}\\right)$",
+                "explanation": "För $x \\le 0$ är $t = e^x \\in (0, 1]$. Ekvationen $y = \\frac{t + t^{-1}}{2}$ ger $t^2 - 2yt + 1 = 0 \\iff t = y \\pm \\sqrt{y^2 - 1}$ (för $y \\ge 1$). Eftersom $t \\le 1$ väljs minustecknet: $t = y - \\sqrt{y^2 - 1}$, vilket ger $f^{-1}(x) = \\ln(x - \\sqrt{x^2 - 1})$.",
+                "completed": false,
+                "bookmarked": false
+            },
+            "10": {
+                "text": "Bestäm alla lösningar, reella såväl som komplexa, till ekvationen $4z^4 + 2z^3 + 2iz + i = 0$.",
+                "answer": "$z = -\\frac{1}{2}$ eller $z = 2^{-1/3} e^{\\left(-\\frac{\\pi}{6} + \\frac{2n\\pi}{3}\\right)i}$ där $n = 0, 1, 2$",
+                "explanation": "Faktorisering ger $2z^3(2z + 1) + i(2z + 1) = (2z + 1)(2z^3 + i) = 0$. Första faktorn ger $z = -\\frac{1}{2}$. Andra faktorn ger $z^3 = -\\frac{i}{2} = \\frac{1}{2}e^{-i\\pi/2}$, vars rötter är $z = 2^{-1/3}e^{(-\\pi/6 + 2n\\pi/3)i}$ för $n = 0, 1, 2$.",
+                "completed": false,
+                "bookmarked": false
+            }
+        }
+    }
+}
